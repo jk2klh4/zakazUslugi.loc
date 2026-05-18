@@ -2,11 +2,12 @@
 
 require 'config.php';
 require 'autoload.php';
-
+session_start();
 try{
     $request = new src\services\Request();
     $db = new src\services\Db($dbOptions);
-} catch (src\Exceptions\DbException $e){
+    $user = new src\User($request, $db);
+    } catch (src\Exceptions\DbException $e){
     echo $e->getMessage();
     exit();
 }

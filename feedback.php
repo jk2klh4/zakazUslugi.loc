@@ -14,17 +14,17 @@
                     <input type="hidden" name="_csrf" value="Y8NMvvT3LR7_0FE4QlfcxYPKc6Y2OK44IrCGNdMqbagnjTjstcRneKWCP3EvEIap9vpLxXJbx1sS4-9C6ksc4w==">
                     <div class="mb-3 field-feedback-fio required">
                         <label class="form-label" for="feedback-fio">фио</label>
-                        <input type="text" id="feedback-fio" class="form-control" name="fio" value="<?= $feedback->getFio()  ?? '' ?>" aria-required="true">
+                        <input type="text" id="feedback-fio" class="form-control" name="fio" value="<?= $feedback?->getFio() ?? '' ?>" aria-required="true">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="mb-3 field-feedback-phone required">
                         <label class="form-label" for="feedback-phone">телефон</label>
-                        <input type="text" id="feedback-phone" class="form-control" name="phone" value="<?= $feedback->getPhone()  ?? '' ?>"aria-required="true" data-plugin-inputmask="inputmask_f59f28e6">
+                        <input type="text" id="feedback-phone" class="form-control" name="phone" value="<?= $feedback?->getPhone() ?? '' ?> "aria-required="true" data-plugin-inputmask="inputmask_f59f28e6">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="mb-3 field-feedback-text required">
                         <label class="form-label" for="feedback-text">отзыв</label>
-                        <textarea id="feedback-text" class="form-control" name="text" aria-required="true"><?= $feedback->getText() ?? '' ?></textarea>
+                        <textarea id="feedback-text" class="form-control" name="text" aria-required="true"><?= $feedback?->getText() ?? '' ?></textarea>
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="mb-3 field-feedback-imagefile">

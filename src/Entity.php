@@ -35,8 +35,14 @@ abstract class Entity{
         $sql = 'INSERT INTO ' . $this->tableName . '(' . $propsViaSemicolon . ')' . ' VALUES ( "' . $valuesViaSemicolon . '")';
         return $this->db->querySql($sql);
     }
-    public function update(array $field){
-
+    public function update(array $field): void{
+        $propValuesArray = [];
+        foreach($fields as $key => $value){
+            $propValuesArray[] = "$key='$value'";
+        }
+        $propValues = implode(', ', $propValuesArray);
+        $sql = "UPDATE " . $this->tableName. ' '. 'SET'.' '. $propValues.' '." WHERE id = '$this->id'";
+        $this->db->querySql($sql);
     }
 
     public function delete($id){
@@ -51,30 +57,28 @@ abstract class Entity{
     
     
     public function getById(int $id): ?array{
-        $sql = 'SELECT * FROM ' . $this->tableName . ' WHERE id = ' . $id;
-        $result = $this->db->querySql($sql, [':id' => $id]);
-        
-        if (empty($result)) {
-            return null;
-        }
-        
-        return $result;
-        
+        $sql = "SELECT * FROM $this->tableName WHERE id = $id ";
+        $result = $this->db->querySql($sql);
+        return $result ? $result[0] : null;
+    }
 
+
+    public function findByColumn(string $columnName, $value, int $limit=0) : ? array{
+        $strLimit = $limit ? " LIMIT $limit " : '';
+        $sql = "SELECT * FROM " . $this->tableName . " WHERE $columnName = '$value'" . $strLimit;
+        $result = $this->db->querySql($sql);
+        return $result ? $result : null;
+    
     }
 
     
-
-    public function findByColumn(string $columnName, $value, int $limit=0) : ? array{
-        $sql = 'SELECT * FROM ' . $this->tableName . ' WHERE ' . $columnName . ' = value';
-        $result = $this->db->querySql($sql, [':value' => $value]);
-        
+    public function findOneByColumn(string $columnName, $value) : ?array{
+        $result = $this->findByColumn($columnName, $value, 1);
         if (empty($result)) {
             return null;
         }
         
-        return $result;
-    
+        return current($result);
     }
 
 

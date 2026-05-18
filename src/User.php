@@ -2,8 +2,10 @@
 
 namespace src;
 
+use InvalidArgumentException as GlobalInvalidArgumentException;
 use src\exceptions\InvalidArgumentException;
 use src\Entity;
+use src\Exceptions\invalidArgumentException as ExceptionsInvalidArgumentException;
 
 class User extends Entity{
 
@@ -15,6 +17,9 @@ class User extends Entity{
     protected string $fio;
     protected string $email;
     protected string $phone;
+
+    protected ?string $token; 
+
 
     protected bool $isGuest = true;
     protected bool $isAdmin = false;
@@ -86,6 +91,50 @@ class User extends Entity{
         }
 
         
+    }
+
+
+    public function validateLogin(){
+        if(empty($this->login)){
+            throw new InvalidArgumentException('Не передан логин пользователя');
+        }
+
+        if(empty($this->password)){
+            throw new InvalidArgumentException('Не передан пароль пользователя');
+        }
+    }
+
+
+    public function login(){
+        $requestUser = $this->findOneByColumn('login', $this->login); 
+
+            
+        if(!$requestUser){
+            throw new InvalidArgumentException("Неверное имя пользователя или пароль");
+        }
+        if ($requestUser['password'] != $this->password){
+            throw new InvalidArgumentException("Неверное имя пользователя или пароль");
+        }
+        
+        $this->load($requestUser);
+        
+        $this->refreshAuthToken();
+        $this->createTokenCookie();
+
+        $fields = ['token' => $this->token];
+        
+        $this->update($fields);    
+    
+    }
+
+    public function refreshAuthToken(){
+        $this->token = sha1(random_bytes(100));
+    }
+
+
+    public function createTokenCookie(){
+        $token = $this->id . ':' . $this->token;
+        setcookie('token', $token, 0, '/', '',false, true );
     }
 
     public function save(): bool

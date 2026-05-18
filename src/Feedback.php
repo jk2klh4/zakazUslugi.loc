@@ -7,22 +7,22 @@ use src\exceptions\InvalidArgumentException;
 use src\exceptions\invalidArgumentException as ExceptionsInvalidArgumentException;
 
 class Feedback extends Entity{
-    protected string $fio;
-    protected string $phone;
-    protected string $text;
-    protected array $image_file;
-    protected string $create_at;
-    protected string $agree;
+    protected ?string $fio = null;
+    protected ?string $phone = null;
+    protected ?string $text = null;
+    protected ?array $image_file = null;
+    protected ?string $create_at = null;
+    protected ?string $agree = null;
 
     
-    public function getFio(): string{
+    public function getFio(): ?string{
         return $this->fio;
     }
     
-    public function getPhone(): string{
+    public function getPhone(): ?string{
         return $this->phone;
     }
-    public function getText(): string{
+    public function getText(): ?string{
         return $this->text;
     }
 
@@ -96,10 +96,11 @@ class Feedback extends Entity{
         if(!move_uploaded_file($this->image_file['tmp_name'], $pathFile)){
             throw new InvalidArgumentException('Ошибка при загрузке файла');
         }
-        $fields = ['fio' => $this->fio, 
+        $fields = [
+        'fio' => $this->fio, 
         'phone' => $this->phone,
         'text' => $this->text,
-        'image_file' => $this->$pathFile,
+        'image_file' => $pathFile,
         ];
         return $this->insert($fields);
     }
