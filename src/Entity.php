@@ -8,7 +8,7 @@ use src\services\Db;
 abstract class Entity{
 
     protected string $tableName;
-    protected int $id;
+    public int $id;
 
 
     public function __construct(protected Request $request, protected Db $db){

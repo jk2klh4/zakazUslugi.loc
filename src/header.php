@@ -14,7 +14,7 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-
+    
     <header id="header">
         <nav id="w1" class="navbar-expand-md navbar-dark bg-dark fixed-top navbar">
             <div class="container">
@@ -25,9 +25,15 @@
                 </button>
                 <div id="w1-collapse" class="collapse navbar-collapse">
                     <ul id="w2" class="navbar-nav nav">
-                        <li class="nav-item"><a class="nav-link" href="feedback.php">отзывы</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login.php">войти</a></li>
+                        <li class="nav-item"><a class="nav-link <?= $page == 'feedback.php' ? 'active' : '' ?>" href="feedback.php">отзывы</a></li>
+                            <?php if ($user->isGuest()): ?> 
+                            <li class="nav-item"><a class="nav-link <?= $page == 'login.php' ? 'active' : '' ?>" href="login.php">войти</a></li>
+                            <?php else: ?>
+                            <li class="nav-item"><a class="nav-link <?= $page == 'account.php' ? 'active' : '' ?>" href="account.php">личный кабинет</a></li>
+                            <li class="nav-item"><a class="nav-link" href="logout.php"><?= $user->getLogin() ?>(выйти)</a></li>
+                        <?php endif ?>
                     </ul>
+
                 </div>
             </div>
         </nav>

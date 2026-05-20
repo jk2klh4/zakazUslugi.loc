@@ -1,3 +1,6 @@
+<?php require_once 'src/initAdd-application.php'; ?>
+
+
 <?php include 'src/header.php' ?>
 
     <main id="main" class="flex-shrink-0" role="main">

@@ -2,6 +2,9 @@
 
 require 'init.php';
 
+$page = 'login.php';
+
+
 if($request->isPost){
     $user->load($request->post());
     try{

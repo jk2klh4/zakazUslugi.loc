@@ -7,16 +7,23 @@ use src\services\Db;
 
 require 'init.php';
 
-$user = new User($request, $db);
+$page = 'register.php';
+
+
+if($user->isGuest || !$user->isAdmin){
+    header('Location: /zakazUslugi.loc/login.php');
+}
+
+$newUser = new User($request, $db);
 
 if($request->isPost){
-    $user->load($request->post());
+    $newUser->load($request->post());
     try{
-        $user->validate();
+        $newUser->validate();
         
-        if ($user->save()) {
+        if ($newUser->save()) {
             $successMessage = "Регистрация пройдена";
-            $user = new User($request, $db);
+            $newUser = new User($request, $db);
         } else {
             $error = "Регистрация не пройдена";
         }

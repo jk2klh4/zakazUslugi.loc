@@ -17,12 +17,13 @@ class User extends Entity{
     protected string $fio;
     protected string $email;
     protected string $phone;
+    protected string $role;
 
     protected ?string $token; 
 
 
-    protected bool $isGuest = true;
-    protected bool $isAdmin = false;
+    public bool $isGuest = true;
+    public bool $isAdmin = false;
 
 
 
@@ -42,6 +43,16 @@ class User extends Entity{
     public function getPhone(): string{
         return $this->phone;
     }
+
+
+    public function isAdmin(): bool{
+        return $this->role == 'admin' ? true : false;
+    }
+    
+    public function isGuest(): bool {
+        return !isset($this->id) || empty($this->id);
+    }
+
 
     public function validate(){
         if(empty($this->login)){
@@ -126,6 +137,36 @@ class User extends Entity{
         $this->update($fields);    
     
     }
+    public function logout(): bool{
+        if(isset($_COOKIE['token'])){
+            $this->update(['token' => null], $_SESSION['user_id']);
+
+            setcookie('auth_token', '', time()  - 3600, '/');
+            session_unset();
+            session_destroy();
+            
+            return true;
+        }
+    return false;
+    }
+
+
+    public function identity(): ?array{
+        $token = $_COOKIE['token'] ?? '';
+        if(empty($token)){
+            return null;
+        }
+        [$userId, $authToken] = explode(':', $token, 2);
+        $user = $this->getById((int)$userId);
+        if($user === null){
+            return null;
+        }
+        if($user['token'] !== $authToken){
+            return null;
+        }
+        return $user;
+    }
+
 
     public function refreshAuthToken(){
         $this->token = sha1(random_bytes(100));

@@ -1,3 +1,6 @@
+<?php require_once 'src/initApplication.php'; ?>
+
+
 <?php include 'src/header.php' ?>
 
         <main id="main" class="flex-shrink-0" role="main">
@@ -5,7 +8,7 @@
                 <nav aria-label="breadcrumb">
                     <ol id="w4" class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="account.html">заявки</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="account.php">заявки</a></li>
                     </ol>
                 </nav>
                 <div class="application-index">
@@ -18,25 +21,26 @@
  
                         <div id="w1" class="list-view">
                             <div class="d-flex flex-wrap justify-content-between layout-card">
+                                <?php foreach($applications as $app): ?>
                                 
                                 <div class="item" data-key="9">
                                     <div class="card" style="width: 18rem;">
                                         <div class="card-body">
                                             <h3 class="card-title">
-                                                sdsdsfdfdf </h5>
+                                            <?= $app['reason'] ?> </h5>
                                             <p class="card-text">
-                                                fdsfdsfdfdsfdsf</p>
+                                            <?= $app['content'] ?></p>
                                             <div class="card-text">
                                                 <div class="opacity-50">
                                                     дата и время посещения:
                                                 </div>
-                                                25.05.2024 15-30
+                                                <?= $app['date'] ?> <?= $app['time'] ?>
                                             </div>
                                             <div class="card-text">
                                                 <div class="opacity-50">
                                                     дата и время создания:
                                                 </div>
-                                                25.05.2024 15-30
+                                                <?= $app['create_at'] ?>
                                                  
                                             </div>
                                             <div class="card-text">
@@ -51,6 +55,7 @@
                                     </div>
                                   
                                 </div>
+                                <?php endforeach ?>
                             </div>
                         </div>
                     </div>
