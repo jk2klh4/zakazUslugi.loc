@@ -14,7 +14,9 @@
                 <div class="application-index">
     
                     <h1>Заявка на посещение</h1>
-    
+                        <?php if(!empty($error)): ?>
+                        <div style="color:red"> <?= $error ?></div>
+                        <?php endif ?>
 
     
                     <div id="p0" data-pjax-container="" data-pjax-push-state data-pjax-timeout="1000">
@@ -23,7 +25,7 @@
                             <div class="d-flex flex-wrap justify-content-between layout-card">
                                 <?php foreach($applications as $app): ?>
                                 
-                                <div class="item" data-key="9">
+                                <div class="item" data-key="<?= $app['id'] ?>">
                                     <div class="card" style="width: 18rem;">
                                         <div class="card-body">
                                             <h3 class="card-title">
@@ -50,7 +52,7 @@
                                                 На посещение
                                             </div>
                                             
-                                            <a class="btn btn-danger" href="/account/application/view?id=9">отменить</a>
+                                            <a class="btn btn-danger" href="delete-app.php?id=<?= $app['id'] ?>">отменить</a>
                                         </div>
                                     </div>
                                   

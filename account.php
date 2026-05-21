@@ -6,7 +6,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol id="w4" class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="index.php">Главная</a></li>
                         <li class="breadcrumb-item active" aria-current="page">заявки</li>
                     </ol>
                 </nav>
@@ -18,7 +18,7 @@
                         <a class="btn btn-success" href="add-application.php">подать заявку</a>
                     </p>
                     <p>
-                        <a class="btn btn-primary" href="/account/application/password">сменить пароль</a>
+                        <a class="btn btn-primary" href="change-password.php">сменить пароль</a>
                     </p>
     
                     <div id="p0" data-pjax-container="" data-pjax-push-state data-pjax-timeout="1000">
@@ -78,7 +78,8 @@
 
                                             </div>
                                             <a class="btn btn-primary" href="application.php?id=<?= $app['id'] ?>">просмотр</a>
-                                            <a class="btn btn-danger" href="application.php?id=<?= $app['id'] ?>">отменить</a>
+                                            <a class="btn btn-danger" href="delete-app.php?id=<?= $app['id'] ?>" onclick="confirm('Вы хотите удалить заявку?');">отменить</a>
+
                                         </div>
                                     </div>
                                   

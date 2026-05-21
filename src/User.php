@@ -116,6 +116,32 @@ class User extends Entity{
     }
 
 
+    public function validateChangePassword(string $oldPassword, string $newPassword, string  $repeatPassword){
+        if (empty($oldPassword) || empty($newPassword) || empty($repeatPassword)) {
+            throw new InvalidArgumentException('Заполните все поля');
+        }
+        if($oldPassword != $this->getPassword()){
+            throw new InvalidArgumentException('Старый пароль не совпадает с введенным');
+        }
+        $passwordLength = mb_strlen($this->password);
+        if ($passwordLength < 6) {
+            throw new InvalidArgumentException('Пароль должен содержать не менее 6 символов');
+        }
+        if ($passwordLength > 30) {
+            throw new InvalidArgumentException('Пароль должен содержать не более 30 символов');
+        }
+        if (!preg_match('/^[a-zA-Z0-9]+$/', $this->password)) {
+            throw new InvalidArgumentException('Пароль должен состоять только из латинских букв и цифр');
+        }
+        if($newPassword != $repeatPassword){
+            throw new InvalidArgumentException('Пароли не совпадают');
+        }
+        if($newPassword === $oldPassword){
+            throw new InvalidArgumentException('Новый пароль и старый пароль совпадают');
+        }
+    }
+
+
     public function login(){
         $requestUser = $this->findOneByColumn('login', $this->login); 
 

@@ -24,8 +24,6 @@ if($request->isPost){
         if ($newUser->save()) {
             $successMessage = "Регистрация пройдена";
             $newUser = new User($request, $db);
-        } else {
-            $error = "Регистрация не пройдена";
         }
         
     }catch(src\exceptions\invalidArgumentException $e){

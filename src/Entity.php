@@ -35,7 +35,7 @@ abstract class Entity{
         $sql = 'INSERT INTO ' . $this->tableName . '(' . $propsViaSemicolon . ')' . ' VALUES ( "' . $valuesViaSemicolon . '")';
         return $this->db->querySql($sql);
     }
-    public function update(array $field): void{
+    public function update(array $fields): void{
         $propValuesArray = [];
         foreach($fields as $key => $value){
             $propValuesArray[] = "$key='$value'";
@@ -46,7 +46,8 @@ abstract class Entity{
     }
 
     public function delete($id){
-
+        $sql = "DELETE FROM `" . $this->tableName . "` WHERE `id` = " . (int)$id;
+        return $this->db->querySql($sql); 
     }
     public function findAll(): ?array{
         $sql = 'SELECT * FROM   ' . $this->tableName;
