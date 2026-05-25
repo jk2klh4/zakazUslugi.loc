@@ -9,15 +9,15 @@ try {
     $db = new src\services\Db($dbOptions);
     $user = new src\User($request, $db);
 
-    $existUser = $user->findOneByColumn('login', 'vrrkzumg'); 
+    // $existUser = $user->findOneByColumn('login', 'vrrkzumg'); 
     
-    if ($existUser) {
-        $user->load($existUser);
+    // if ($existUser) {
+    //     $user->load($existUser);
         
-        $user->refreshAuthToken();
-        $user->createTokenCookie();
+    //     $user->refreshAuthToken();
+    //     $user->createTokenCookie();
 
-    }
+    // }
 
     $identity = $user->identity();
     if ($identity !== null) {

@@ -1,3 +1,6 @@
+<?php require_once 'src/initApplication.php'; ?>
+
+
 <?php include 'src/header.php' ?>
     <main id="main" class="flex-shrink-0" role="main">
         <div class="container">
@@ -77,9 +80,9 @@
                                             посещение
                                         </div>
                                         <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=9">просмотр</a> <a
+                                            href="application/view?id=1">просмотр</a> <a
                                             class="btn btn-primary"
-                                            href="/clinic-office/application/apply?id=9">принять</a>
+                                            href="application/apply?id=1">принять</a>
                                     </div>
                                 </div>
                             </div>
@@ -159,9 +162,9 @@
                                             забронировано
                                         </div>
                                         <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=4">просмотр</a> <a
+                                            href="/clinic-office/application/view?id=5">просмотр</a> <a
                                             class="btn btn-primary"
-                                            href="/clinic-office/application/end?id=4">заверить</a>
+                                            href="/clinic-office/application/end?id=5">заверить</a>
                                     </div>
                                 </div>
                             </div>

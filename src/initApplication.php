@@ -14,7 +14,7 @@ if ($user->isGuest()) {
     exit();
 }
 
-$appId = $_GET['id'];
+$appId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $applicationModel = new src\Application($request, $db);
 $appData = $applicationModel->findOneByColumn('id', $appId);
 

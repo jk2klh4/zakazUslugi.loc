@@ -1,3 +1,5 @@
+<?php require_once 'src/initApplication.php'; ?>
+
 <?php include 'src/header.php' ?>
 
     
@@ -17,18 +19,18 @@
 
     
                 <div class="feedback-index p-3">
-               
+
                 <form id="w0" action="" method="post">
                     <input type="hidden" name="_csrf"
                         value="Y8NMvvT3LR7_0FE4QlfcxYPKc6Y2OK44IrCGNdMqbagnjTjstcRneKWCP3EvEIap9vpLxXJbx1sS4-9C6ksc4w==">
                     <div class="mb-3 field-feedback-fio required">
                         <label class="form-label" for="feedback-fio">Выберите дату</label>
-                        <input type="date" id="app-date" class="form-control" name="date" value="<?= $application->date  ? $application->date : null ?>" aria-required="true">
+                        <input type="date" id="app-date" class="form-control" name="date" value="<?= !empty($currentApplication['date']) ? $currentApplication['date'] : null ?>" aria-required="true">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="mb-3 field-feedback-fio required">
                         <label class="form-label" for="feedback-fio">Выберите время посещения</label>
-                        <input type="time" id="app-time" class="form-control" name="time" value="<?= $application->time  ? $application->time : null ?>" aria-required="true">
+                        <input type="time" id="app-time" class="form-control" name="time" value="<?= !empty($currentApplication['time']) ? $currentApplication['time'] : null ?>" aria-required="true">
                         <div class="invalid-feedback"></div>
                     </div>
                  
@@ -38,7 +40,7 @@
                     </div>
                 </form>
                 
-            </div><!-- feedback-index -->
+            </div>
     
                     <div id="p0" data-pjax-container="" data-pjax-push-state data-pjax-timeout="1000">
  
@@ -74,10 +76,9 @@
                        
                                             </div>
                                             
-                                            <!-- <a class="btn btn-danger" href="delete-app.php?id=<?=$application->id ?>">отменить</a> -->
+                                            <a class="btn btn-danger" href="delete-app.php?id=<?= $currentApplication['id'] ?>">отменить</a>
                                             
-                                            
-                                            <a class="btn btn-primary" href="admin-panel.php?submit&id=<?=$application->id?>">подтвердить</a>
+                                            <a class="btn btn-primary" href="admin-panel.php?submit&id=<?= $currentApplication['id'] ?>">подтвердить</a>
                                             
                                             
                                         </div>
