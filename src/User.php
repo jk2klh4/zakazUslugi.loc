@@ -17,7 +17,7 @@ class User extends Entity{
     protected string $fio;
     protected string $email;
     protected string $phone;
-    protected string $role;
+    protected string $role = '';
 
     protected ?string $token; 
 
@@ -155,6 +155,8 @@ class User extends Entity{
         
         $this->load($requestUser);
         
+        $this->id = (int)$requestUser['id']; 
+
         $this->refreshAuthToken();
         $this->createTokenCookie();
 

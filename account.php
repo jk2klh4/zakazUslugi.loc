@@ -24,7 +24,7 @@
                     <div id="p0" data-pjax-container="" data-pjax-push-state data-pjax-timeout="1000">
                         <div class="application-search">
     
-                            <form id="w0" action="/account/application/index" method="get" data-pjax="1">
+                            <form id="w0" action="account.php" method="get" data-pjax="1">
                                 <div class="form-group field-applicationsearch-status_id">
                                     <label class="control-label" for="applicationsearch-status_id">статус</label>
                                     <select id="applicationsearch-status_id" class="form-control"
@@ -50,41 +50,43 @@
                         <div id="w1" class="list-view">
                             <div class="d-flex flex-wrap justify-content-between layout-card">
                                 
-                                <?php foreach ($userApplications as $app): ?>
-                                <div class="item" data-key="<?= $app['id'] ?>">
-                                    <div class="card" style="width: 18rem;">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <?= $app['reason'] ?> </h5>
-                                            <p class="card-text">
-                                                <?= $app['content'] ?></p>
-                                            <div class="card-text">
-                                                <div class="opacity-50">
-                                                    дата и время посещения:
+                                <?php if (isset($userApplications) && is_array($userApplications)): ?>
+                                    <?php foreach ($userApplications as $app): ?>
+                                    <div class="item" data-key="<?= $app['id'] ?>">
+                                        <div class="card" style="width: 18rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <?= $app['reason'] ?> </h5>
+                                                <p class="card-text">
+                                                    <?= $app['content'] ?></p>
+                                                <div class="card-text">
+                                                    <div class="opacity-50">
+                                                        дата и время посещения:
+                                                    </div>
+                                                    <?= $app['date'] ?> <?= $app['time'] ?>
                                                 </div>
-                                                <?= $app['date'] ?> <?= $app['time'] ?>
-                                            </div>
-                                            <div class="card-text">
-                                                <div class="opacity-50">
-                                                    дата и время создания:
+                                                <div class="card-text">
+                                                    <div class="opacity-50">
+                                                        дата и время создания:
+                                                    </div>
+                                                    <?= $app['create_at'] ?>
+                                                     
                                                 </div>
-                                                <?= $app['create_at'] ?>
-                                                 
-                                            </div>
-                                            <div class="card-text">
-                                                <div class="opacity-50">
-                                                    статус:
+                                                <div class="card-text">
+                                                    <div class="opacity-50">
+                                                        статус:
+                                                    </div>
+
                                                 </div>
+                                                <a class="btn btn-primary" href="application.php?id=<?= $app['id'] ?>">просмотр</a>
+                                                <a class="btn btn-danger" href="delete-app.php?id=<?= $app['id'] ?>" onclick="confirm('Вы хотите удалить заявку?');">отменить</a>
 
                                             </div>
-                                            <a class="btn btn-primary" href="application.php?id=<?= $app['id'] ?>">просмотр</a>
-                                            <a class="btn btn-danger" href="delete-app.php?id=<?= $app['id'] ?>" onclick="confirm('Вы хотите удалить заявку?');">отменить</a>
-
                                         </div>
+                                      
                                     </div>
-                                  
-                                </div>
-                                <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
 
                             </div>
                         </div>

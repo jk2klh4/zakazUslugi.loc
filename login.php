@@ -1,6 +1,5 @@
 <?php require 'src/initLogin.php'   ?>
 
-
 <?php include 'src/header.php' ?>
 
 

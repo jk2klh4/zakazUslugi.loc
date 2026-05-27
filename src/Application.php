@@ -13,10 +13,10 @@ class Application extends Entity {
     public ?int $user_id = null;
     public ?int $status_id = null;
 
-    protected ?string $content = null;
-    protected ?string $date = null;
-    protected ?string $time = null;
-    protected ?string $reason = null;
+    public ?string $content = null;
+    public ?string $date = null;
+    public ?string $time = null;
+    public ?string $reason = null;
     protected ?string $create_at = null;
 
     public function validate(){
@@ -39,7 +39,23 @@ class Application extends Entity {
             throw new InvalidArgumentException('Не выбрано время посещения');
         }
         $visitDateTime = $this->date . ' ' . $this->time;
-        if ($visitDateTime <= date('Y-m-d')) {
+        if ($visitDateTime <= date('Y-m-d H:i:s')) {
+            throw new InvalidArgumentException('Дата не может быть в прошлом');
+        }
+
+        if ($this->time < '08:00' || $this->time > '20:00') {
+            throw new InvalidArgumentException('Выберете время с 8:00 до 20:00');
+        }
+    }
+     public function validateAdmin() {
+        if (empty($this->date)) {
+            throw new InvalidArgumentException('Не выбрана дата посещения');
+        }
+        if (empty($this->time)) {
+            throw new InvalidArgumentException('Не выбрано время посещения');
+        }
+
+        if ($this->date < date('Y-m-d H:i:s')) {
             throw new InvalidArgumentException('Дата не может быть в прошлом');
         }
 

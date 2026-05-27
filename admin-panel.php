@@ -1,4 +1,4 @@
-<?php require_once 'src/initApplication.php'; ?>
+<?php require_once 'src/initAdminPanel.php'; ?>
 
 
 <?php include 'src/header.php' ?>
@@ -17,7 +17,7 @@
                 <div id="p0" data-pjax-container="" data-pjax-push-state data-pjax-timeout="1000">
                     <div class="application-search">
 
-                        <form id="w0" action="/clinic-office/application/index" method="get" data-pjax="1">
+                        <form id="w0" action="application/index" method="get" data-pjax="1">
                             <div class="form-group field-applicationsearch-status_id">
                                 <label class="control-label" for="applicationsearch-status_id">статус</label>
                                 <select id="applicationsearch-status_id" class="form-control"
@@ -45,33 +45,27 @@
 
                     <div id="w1" class="list-view">
                         <div class="d-flex flex-wrap justify-content-between">
+                        <?php foreach ($userApplications as $app): ?>
+                            
                             <div class="item" data-key="9">
                                 <div class="card" style="width: 18rem;">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            q </h5>
+                                        <?= $app['reason'] ?></h5>
                                         <p class="card-text">
-                                            qqqqqqq </p>
+                                        <?= $app['content'] ?></p>
                                         <div class="card-text">
                                             <div class="opacity-50">
-                                                дата и время посещения:
+                                                дата и время посещения
                                             </div>
-                                            12.05.2024 15:00:00
+                                            <?= $app['date'] ?> в <?= $app['time'] ?>
                                         </div>
                                         <div class="card-text">
                                             <div class="opacity-50">
                                                 дата и время создания:
                                             </div>
-                                            02.05.2024 15:42:32
+                                            <?= $app['create_at'] ?>
                                         </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                отправитель:
-                                            </div>
-
-                                            й
-                                        </div>
-
                                         <div class="card-text">
                                             <div class="opacity-50">
                                                 статус:
@@ -79,337 +73,12 @@
                                             На
                                             посещение
                                         </div>
-                                        <a class="btn btn-primary"
-                                            href="application/view?id=1">просмотр</a> <a
-                                            class="btn btn-primary"
-                                            href="application/apply?id=1">принять</a>
+                                        <a class="btn btn-primary" href="admin-app.php?id=<?= $app['id'] ?>">просмотр</a>
+                                        <a class="btn btn-primary" href="admin-panel.php?id=<?= $app['id'] ?>">принять</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="item" data-key="2">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            asd </h5>
-                                        <p class="card-text">
-                                            asd </p>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время посещения:
-                                            </div>
-                                            19.04.2024 15:13:53
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время создания:
-                                            </div>
-                                            19.04.2024 12:47:46
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                отправитель:
-                                            </div>
-
-                                            й
-                                        </div>
-
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                статус:
-                                            </div>
-                                            Время
-                                            забронировано
-                                        </div>
-                                        <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=2">просмотр</a> <a
-                                            class="btn btn-primary"
-                                            href="/clinic-office/application/end?id=2">заверить</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" data-key="4">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            asd </h5>
-                                        <p class="card-text">
-                                            asd </p>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время посещения:
-                                            </div>
-                                            23.04.2024 11:19:48
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время создания:
-                                            </div>
-                                            19.04.2024 12:47:46
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                отправитель:
-                                            </div>
-
-                                            й
-                                        </div>
-
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                статус:
-                                            </div>
-                                            Время
-                                            забронировано
-                                        </div>
-                                        <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=5">просмотр</a> <a
-                                            class="btn btn-primary"
-                                            href="/clinic-office/application/end?id=5">заверить</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" data-key="6">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            asd </h5>
-                                        <p class="card-text">
-                                            asd </p>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время посещения:
-                                            </div>
-                                            23.04.2024 11:19:56
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время создания:
-                                            </div>
-                                            19.04.2024 12:47:46
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                отправитель:
-                                            </div>
-
-                                            й
-                                        </div>
-
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                статус:
-                                            </div>
-                                            Время
-                                            забронировано
-                                        </div>
-                                        <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=6">просмотр</a> <a
-                                            class="btn btn-primary"
-                                            href="/clinic-office/application/end?id=6">заверить</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" data-key="8">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            asd </h5>
-                                        <p class="card-text">
-                                            asd </p>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время посещения:
-                                            </div>
-                                            23.04.2024 11:19:56
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время создания:
-                                            </div>
-                                            19.04.2024 12:47:46
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                отправитель:
-                                            </div>
-
-                                            й
-                                        </div>
-
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                статус:
-                                            </div>
-                                            Время
-                                            забронировано
-                                        </div>
-                                        <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=8">просмотр</a> <a
-                                            class="btn btn-primary"
-                                            href="/clinic-office/application/end?id=8">заверить</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" data-key="1">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            asd </h5>
-                                        <p class="card-text">
-                                            asd </p>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время посещения:
-                                            </div>
-                                            19.04.2024 15:13:53
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время создания:
-                                            </div>
-                                            19.04.2024 11:23:10
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                отправитель:
-                                            </div>
-
-                                            й
-                                        </div>
-
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                статус:
-                                            </div>
-                                            На
-                                            посещение
-                                        </div>
-                                        <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=1">просмотр</a> <a
-                                            class="btn btn-primary"
-                                            href="/clinic-office/application/apply?id=1">принять</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" data-key="3">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            asd </h5>
-                                        <p class="card-text">
-                                            asd </p>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время посещения:
-                                            </div>
-                                            23.04.2024 11:19:48
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время создания:
-                                            </div>
-                                            19.04.2024 11:23:10
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                отправитель:
-                                            </div>
-
-                                            й
-                                        </div>
-
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                статус:
-                                            </div>
-                                            На
-                                            посещение
-                                        </div>
-                                        <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=3">просмотр</a> <a
-                                            class="btn btn-primary"
-                                            href="/clinic-office/application/apply?id=3">принять</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" data-key="5">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            asd </h5>
-                                        <p class="card-text">
-                                            asd </p>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время посещения:
-                                            </div>
-                                            23.04.2024 11:00:00
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время создания:
-                                            </div>
-                                            19.04.2024 11:23:10
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                отправитель:
-                                            </div>
-
-                                            й
-                                        </div>
-
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                статус:
-                                            </div>
-                                            Посещение перенесено
-                                        </div>
-                                        <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=5">просмотр</a> <a
-                                            class="btn btn-primary"
-                                            href="/clinic-office/application/end?id=5">заверить</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" data-key="7">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            asd </h5>
-                                        <p class="card-text">
-                                            asd </p>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время посещения:
-                                            </div>
-                                            23.04.2024 11:19:56
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                дата и время создания:
-                                            </div>
-                                            19.04.2024 11:23:10
-                                        </div>
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                отправитель:
-                                            </div>
-
-                                            й
-                                        </div>
-
-                                        <div class="card-text">
-                                            <div class="opacity-50">
-                                                статус:
-                                            </div>
-                                            На
-                                            посещение
-                                        </div>
-                                        <a class="btn btn-primary"
-                                            href="/clinic-office/application/view?id=7">просмотр</a> <a
-                                            class="btn btn-primary"
-                                            href="/clinic-office/application/apply?id=7">принять</a>
+                            <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>

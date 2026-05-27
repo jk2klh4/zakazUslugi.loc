@@ -1,34 +1,31 @@
 <?php
 
-
 use src\User;
-use src\services\Request;
-use src\services\Db;
+use src\exceptions\invalidArgumentException;
 
-require 'init.php';
+require_once 'init.php';
 
 $page = 'register.php';
+$error = null;
+$successMessage = null;
 
-
-if($user->isGuest || !$user->isAdmin){
-    header('Location: /zakazUslugi.loc/login.php');
+if (!$user->isGuest()) {
+    header('Location: account.php');
+    exit();
 }
 
 $newUser = new User($request, $db);
 
-if($request->isPost){
+if ($request->isPost) {
     $newUser->load($request->post());
-    try{
+    try {
         $newUser->validate();
         
         if ($newUser->save()) {
-            $successMessage = "Регистрация пройдена";
-            $newUser = new User($request, $db);
+            $successMessage = "Регистрация успешно пройдена";
         }
         
-    }catch(src\exceptions\invalidArgumentException $e){
+    } catch (invalidArgumentException $e) {
         $error = $e->getMessage();
     }
 }
-
-?>

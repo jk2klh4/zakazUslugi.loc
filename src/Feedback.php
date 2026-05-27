@@ -91,20 +91,24 @@ class Feedback extends Entity{
     
     }
 
-    public function save(): bool{
-        $pathFile ='uploads/' . $this->image_file['name'];
-        if(!move_uploaded_file($this->image_file['tmp_name'], $pathFile)){
-            throw new InvalidArgumentException('Ошибка при загрузке файла');
+    public function save(): bool {
+        $pathFile = null;
+        if (!empty($this->image_file['name']) && !empty($this->image_file['tmp_name'])) {
+            $pathFile = 'uploads/' . time() . '_' . $this->image_file['name'];
+            if (!move_uploaded_file($this->image_file['tmp_name'], $pathFile)) {
+                throw new InvalidArgumentException('Ошибка при загрузке файла');
+            }
         }
+
         $fields = [
-        'fio' => $this->fio, 
-        'phone' => $this->phone,
-        'text' => $this->text,
-        'image_file' => $pathFile,
+            'fio'        => $this->fio, 
+            'phone'      => $this->phone,
+            'feedback'   => $this->text,
+            'image_file' => $pathFile,
+            'status_id'  => 1
         ];
+
         return $this->insert($fields);
     }
-
-    
 }
 ?>
