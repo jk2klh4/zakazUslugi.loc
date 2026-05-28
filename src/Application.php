@@ -47,7 +47,7 @@ class Application extends Entity {
             throw new InvalidArgumentException('Выберете время с 8:00 до 20:00');
         }
     }
-     public function validateAdmin() {
+     public function validateAdminTime() {
         if (empty($this->date)) {
             throw new InvalidArgumentException('Не выбрана дата посещения');
         }

@@ -6,8 +6,8 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol id="w4" class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="account.html">заявки</a></li>
+                <li class="breadcrumb-item"><a href="index.php">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="account.php">заявки</a></li>
             </ol>
         </nav>
         <div class="application-index">
@@ -60,10 +60,10 @@
                                         </div>
                                         <div class="card-text">
                                             <div class="opacity-50">статус:</div>
-                                            На посещение
+                                            <?= $currentApplication['status'] ?>
                                         </div>
                                         
-                                        <a class="btn btn-danger" href="delete-app.php?id=<?= $currentApplication['id'] ?>">завершить</a>
+                                        <a class="btn btn-danger" href="delete-app.php?id=<?= $currentApplication['id'] ?>">удалить</a>
                                         <a class="btn btn-primary" href="admin-panel.php?submit&id=<?= $currentApplication['id'] ?>">подтвердить</a>
                                     </div>
                                 </div>

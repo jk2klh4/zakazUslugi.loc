@@ -34,7 +34,7 @@ if ($request->isPost) {
             'time' => $request->post('time')
         ]);
 
-        $applicationModel->validateAdmin();
+        $applicationModel->validateAdminTime();
 
         $fields = [
             'date'   => $applicationModel->date,
@@ -42,6 +42,8 @@ if ($request->isPost) {
             'status' => 'timechange'
         ];
         $applicationModel->update($fields);
+        header("Location: admin-panel.php?success_id={$appId}&msg=");
+        exit();
 
     } catch (\src\Exceptions\InvalidArgumentException $e) {
         $error = $e->getMessage();

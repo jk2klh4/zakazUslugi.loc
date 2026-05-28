@@ -21,15 +21,16 @@ if (!$user->isAdmin()) {
 
 $applicationModel = new Application($request, $db);
 
-if (isset($_GET['id'])) {
+if (isset($_GET['id']) && isset($_GET['status'])) {
     $appId = (int)$_GET['id'];
+    $statusParam = trim($_GET['status']);
     
     if ($appId > 0) {
         $newStatus = null;
 
-        if (isset($_GET['submit'])) {
+        if ($statusParam === 'submit') {
             $newStatus = 'timereserv';
-        } elseif (isset($_GET['complete'])) {
+        } elseif ($statusParam === 'complete') {
             $newStatus = 'provideo';
         }
 
@@ -37,19 +38,20 @@ if (isset($_GET['id'])) {
             $sql = "UPDATE `application` SET `status` = '{$newStatus}' WHERE `id` = {$appId}";
             $db->querySql($sql);
             
-            header("Location: admin-panel.php");
+            header("Location: admin-panel.php?success_id={$appId}&success_status={$newStatus}");
             exit();
         }
     }
 }
 
-$searchStatus = isset($_GET['status']) ? trim($_GET['status']) : '';
-if (!empty($searchStatus)) {
-    $userApplications = $applicationModel->findByColumn('status', $searchStatus);
-} else {
-    $userApplications = $applicationModel->findAll();
-}
+$searchStatus = $_GET['ApplicationSearch']['status_id'] ?? '';
+$showAllDays = isset($_GET['ApplicationSearch']['all_days']);
 
-$userApplications = $applicationModel->findAll();
+$allApps = $db->querySql("SELECT * FROM `application` ORDER BY `id` DESC") ?? [];
 
+$userApplications = array_filter($allApps, function($app) use ($searchStatus, $showAllDays) {
+    $isToday = $showAllDays || date('Y-m-d') === substr($app['create_at'], 0, 10);
+    $matchesStatus = empty($searchStatus) || $app['status'] === $searchStatus;
 
+    return $isToday && $matchesStatus;
+});

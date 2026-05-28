@@ -12,32 +12,49 @@
             </nav>
             <div class="application-index">
 
-                <h1>заявки</h1>
+                <h1>Заявки</h1>
+                <?php if (isset($_GET['success_id'], $_GET['success_status'])): ?>
+                        <p style="color: green; margin-top: 20px;"> Статус изменен на 
+                        <?= $_GET['success_status'] === 'timereserv' ? 'Время забронировано' : 'Услуга оказана' ?>
+                        </p>
+                <?php endif; ?>
 
                 <div id="p0" data-pjax-container="" data-pjax-push-state data-pjax-timeout="1000">
                     <div class="application-search">
 
-                        <form id="w0" action="application/index" method="get" data-pjax="1">
+                        <form id="w0" action="admin-panel.php" method="get" data-pjax="1">
                             <div class="form-group field-applicationsearch-status_id">
                                 <label class="control-label" for="applicationsearch-status_id">статус</label>
-                                <select id="applicationsearch-status_id" class="form-control"
-                                    name="ApplicationSearch[status_id]">
-                                    <option value="">выберите статус</option>
-                                    <option value="1">На
-                                        посещение</option>
-                                    <option value="2">Время
-                                        забронировано</option>
-                                    <option value="3">Услуга оказана</option>
-                                    <option value="4">Посещение перенесено</option>
+                                <select id="applicationsearch-status_id" class="form-control" name="ApplicationSearch[status_id]">
+                                    <?php 
+                                        $selected = $_GET['ApplicationSearch']['status_id'] ?? '';
+                                        $options = [
+                                            ''           => 'выберите статус',
+                                            'new'        => 'На посещение',
+                                            'timereserv' => 'Время забронировано',
+                                            'provideo'   => 'Услуга оказана',
+                                            'timechange' => 'Посещение перенесено'
+                                        ];
+                                        foreach ($options as $value => $label) {
+                                            $isSel = ($selected === $value) ? 'selected' : '';
+                                            echo "<option value=\"{$value}\" {$isSel}>{$label}</option>";
+                                        }
+                                    ?>
                                 </select>
 
                                 <div class="help-block"></div>
                             </div>
 
+                            <div class="form-group mb-3 mt-2">
+                                <div class="form-check">
+                                    <input type="checkbox" id="all-days-checkbox" class="form-check-input" name="ApplicationSearch[all_days]" value="1" <?= isset($_GET['ApplicationSearch']['all_days']) ? 'checked' : '' ?>>
+                                    <label class="form-check-label" for="all-days-checkbox">Показать заявки за все дни</label>
+                                </div>
+                            </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">найти</button> <a
-                                    class="btn btn-outline-secondary" href="./">собросить</a>
+                                <button type="submit" class="btn btn-primary">найти</button> 
+                                <a class="btn btn-outline-secondary" href="admin-panel.php">сбросить</a>
                             </div>
 
                         </form>
@@ -67,14 +84,29 @@
                                             <?= $app['create_at'] ?>
                                         </div>
                                         <div class="card-text">
-                                            <div class="opacity-50">
-                                                статус:
+                                                <div class="opacity-50">статус:</div>
+                                                <?php 
+                                                    $statusMap = [
+                                                        'timereserv' => 'Время забронировано',
+                                                        'timechange' => 'Посещение перенесено',
+                                                        'provideo'   => 'Услуга оказана',
+                                                        'new'        => 'На посещение'
+                                                    ];
+
+                                                    echo $statusMap[$app['status']] ?? 'На посещение';
+                                                ?>
                                             </div>
-                                            На
-                                            посещение
-                                        </div>
-                                        <a class="btn btn-primary" href="admin-app.php?id=<?= $app['id'] ?>">просмотр</a>
-                                        <a class="btn btn-primary" href="admin-panel.php?id=<?= $app['id'] ?>">принять</a>
+                                            <a class="btn btn-primary" href="admin-app.php?id=<?= $app['id'] ?>">Просмотр</a>
+
+                                            <?php if (in_array($app['status'], ['new', 'timechange', 'На посещение', 'Посещение перенесено'])): ?>
+                                                <a class="btn btn-primary" href="admin-panel.php?id=<?= $app['id'] ?>&status=submit">Подтвердить</a>
+
+                                            <?php elseif ($app['status'] === 'timereserv'): ?>
+                                                <a class="btn btn-primary" href="admin-panel.php?id=<?= $app['id'] ?>&status=complete">Завершить</a>
+
+                                            <?php else: ?>
+                                                <div class="text" style="width: 18rem;">Заявка завершена</div>
+                                            <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
