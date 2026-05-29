@@ -18,4 +18,9 @@ $appId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $applicationModel = new src\Application($request, $db);
 $appData = $applicationModel->findOneByColumn('id', $appId);
 
+if (empty($appData)) {
+    header('Location: 404.php');
+    exit();
+}
+
 $applications = [$appData];

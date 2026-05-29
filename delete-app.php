@@ -18,6 +18,6 @@ if ($appId > 0) {
 }
 
 
-header('Location: admin-panel.php');
+header('Location: account.php');
 exit();
 ?>

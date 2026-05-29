@@ -46,7 +46,7 @@
                                         <h3 class="card-title">
                                             <?= $currentApplication['reason'] ?>
                                         </h3>
-                                        <p class="card-text">Пользователь: Сергей</p>
+                                        <p class="card-text">Пользователь: <?= $applicantFio ?></p>
                                         <p class="card-text">
                                             <?= $currentApplication['content'] ?>
                                         </p>
@@ -58,12 +58,20 @@
                                             <div class="opacity-50">дата и время создания:</div>
                                             <?= $currentApplication['create_at'] ?>
                                         </div>
+                                        
                                         <div class="card-text">
                                             <div class="opacity-50">статус:</div>
-                                            <?= $currentApplication['status'] ?>
+                                            <?php 
+                                                $statusMap = [
+                                                    'timereserv' => 'Время забронировано',
+                                                    'timechange' => 'Посещение перенесено',
+                                                    'provideo'   => 'Услуга оказана',
+                                                    'new'        => 'На посещение'
+                                                ];
+                                                echo $statusMap[$currentApplication['status']];
+                                            ?>
                                         </div>
                                         
-                                        <a class="btn btn-danger" href="delete-app.php?id=<?= $currentApplication['id'] ?>">удалить</a>
                                         <a class="btn btn-primary" href="admin-panel.php?submit&id=<?= $currentApplication['id'] ?>">подтвердить</a>
                                     </div>
                                 </div>

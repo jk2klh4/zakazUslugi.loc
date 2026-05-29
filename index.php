@@ -11,6 +11,11 @@
                <h6>Имя: <?= $review['fio'] ?></h6> 
                 Дата: <?= $review['create_at'] ?>
                <h6>Отзыв: <?= $review['feedback'] ?></h6>
+                <?php if (!empty($review['image_file'])): ?>
+                   <div class="mt-2 mb-2">
+                       <img src="<?= $review['image_file']?>" width = "350" height ="350">
+                   </div>
+               <?php endif; ?>
                <hr>
            </div>
        <?php endforeach; ?>

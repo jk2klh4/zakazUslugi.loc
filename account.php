@@ -12,7 +12,7 @@
                 </nav>
                 <div class="application-index">
     
-                    <h1>заявки</h1>
+                    <h1>Заявки</h1>
     
                     <p>
                         <a class="btn btn-success" href="add-application.php">подать заявку</a>
@@ -27,22 +27,18 @@
                             <form id="w0" action="account.php" method="get" data-pjax="1">
                                 <div class="form-group field-applicationsearch-status_id">
                                     <label class="control-label" for="applicationsearch-status_id">статус</label>
-                                    <select id="applicationsearch-status_id" class="form-control"
-                                        name="ApplicationSearch[status_id]">
+                                    <select id="applicationsearch-status_id" class="form-control" name="ApplicationSearch[status_id]">
                                         <option value="">выберите статус</option>
-                                        <option value="1">На
-                                            посещение</option>
-                                        <option value="2">Время
-                                            забронировано</option>
-                                        <option value="3">Услуга оказана</option>
-                                        <option value="4">Посещение перенесено</option>
+                                        <option value="new">На посещение</option>
+                                        <option value="timereserv">Время забронировано</option>
+                                        <option value="provideo">Услуга оказана</option>
+                                        <option value="timechange">Посещение перенесено</option>
                                     </select>
-    
                                     <div class="help-block"></div>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">найти</button> <a
-                                        class="btn btn-outline-secondary" href="./">сбросить</a>
+                                    <button type="submit" class="btn btn-primary">найти</button> 
+                                    <a class="btn btn-outline-secondary" href="account.php">сбросить</a>
                                 </div>
     
                             </form>
@@ -76,7 +72,15 @@
                                                     <div class="opacity-50">
                                                         статус:
                                                     </div>
-
+                                                    <?php 
+                                                        $statusMap = [
+                                                            'timereserv' => 'Время забронировано',
+                                                            'timechange' => 'Посещение перенесено',
+                                                            'provideo'   => 'Услуга оказана',
+                                                            'new'        => 'На посещение'
+                                                        ];
+                                                        echo $statusMap[$app['status']];
+                                                    ?>
                                                 </div>
                                                 <a class="btn btn-primary" href="application.php?id=<?= $app['id'] ?>">просмотр</a>
                                                 <a class="btn btn-danger" href="delete-app.php?id=<?= $app['id'] ?>" onclick="confirm('Вы хотите удалить заявку?');">отменить</a>

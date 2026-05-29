@@ -34,9 +34,14 @@ if (isset($_GET['id']) && isset($_GET['status'])) {
             $newStatus = 'provideo';
         }
 
+
         if ($newStatus !== null) {
-            $sql = "UPDATE `application` SET `status` = '{$newStatus}' WHERE `id` = {$appId}";
-            $db->querySql($sql);
+            $applicationModel->id = $appId;
+
+            $fields = [
+                'status' => $newStatus
+            ];
+            $applicationModel->update($fields);
             
             header("Location: admin-panel.php?success_id={$appId}&success_status={$newStatus}");
             exit();
@@ -47,7 +52,7 @@ if (isset($_GET['id']) && isset($_GET['status'])) {
 $searchStatus = $_GET['ApplicationSearch']['status_id'] ?? '';
 $showAllDays = isset($_GET['ApplicationSearch']['all_days']);
 
-$allApps = $db->querySql("SELECT * FROM `application` ORDER BY `id` DESC") ?? [];
+$allApps = array_reverse($applicationModel->findAll());
 
 $userApplications = array_filter($allApps, function($app) use ($searchStatus, $showAllDays) {
     $isToday = $showAllDays || date('Y-m-d') === substr($app['create_at'], 0, 10);

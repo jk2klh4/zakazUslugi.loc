@@ -6,7 +6,7 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol id="w4" class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                    <li class="breadcrumb-item"><a href="index.php">Главная</a></li>
                     <li class="breadcrumb-item active" aria-current="page">заявки</li>
                 </ol>
             </nav>
@@ -25,21 +25,13 @@
                         <form id="w0" action="admin-panel.php" method="get" data-pjax="1">
                             <div class="form-group field-applicationsearch-status_id">
                                 <label class="control-label" for="applicationsearch-status_id">статус</label>
+                                
                                 <select id="applicationsearch-status_id" class="form-control" name="ApplicationSearch[status_id]">
-                                    <?php 
-                                        $selected = $_GET['ApplicationSearch']['status_id'] ?? '';
-                                        $options = [
-                                            ''           => 'выберите статус',
-                                            'new'        => 'На посещение',
-                                            'timereserv' => 'Время забронировано',
-                                            'provideo'   => 'Услуга оказана',
-                                            'timechange' => 'Посещение перенесено'
-                                        ];
-                                        foreach ($options as $value => $label) {
-                                            $isSel = ($selected === $value) ? 'selected' : '';
-                                            echo "<option value=\"{$value}\" {$isSel}>{$label}</option>";
-                                        }
-                                    ?>
+                                    <option value="">выберите статус</option>
+                                    <option value="new">На посещение</option>
+                                    <option value="timereserv">Время забронировано</option>
+                                    <option value="provideo">Услуга оказана</option>
+                                    <option value="timechange">Посещение перенесено</option>
                                 </select>
 
                                 <div class="help-block"></div>
@@ -47,7 +39,7 @@
 
                             <div class="form-group mb-3 mt-2">
                                 <div class="form-check">
-                                    <input type="checkbox" id="all-days-checkbox" class="form-check-input" name="ApplicationSearch[all_days]" value="1" <?= isset($_GET['ApplicationSearch']['all_days']) ? 'checked' : '' ?>>
+                                    <input type="checkbox" id="all-days-checkbox" class="form-check-input" name="ApplicationSearch[all_days]" value="1">
                                     <label class="form-check-label" for="all-days-checkbox">Показать заявки за все дни</label>
                                 </div>
                             </div>
@@ -93,7 +85,7 @@
                                                         'new'        => 'На посещение'
                                                     ];
 
-                                                    echo $statusMap[$app['status']] ?? 'На посещение';
+                                                    echo $statusMap[$app['status']];
                                                 ?>
                                             </div>
                                             <a class="btn btn-primary" href="admin-app.php?id=<?= $app['id'] ?>">Просмотр</a>

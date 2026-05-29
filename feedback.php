@@ -8,6 +8,11 @@
             <?php if(!empty($error)): ?>
                 <div style="color:red"> <?= $error ?></div>
             <?php endif ?>
+            <?php if (isset($_GET['review_ok'])): ?>
+            <p style="color: green">
+                Вы создали отзыв
+            </p>
+             <?php endif; ?>
 
             <div class="feedback-index p-3">
                 <form id="w0" action="" method="post" enctype="multipart/form-data">

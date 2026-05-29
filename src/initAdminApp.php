@@ -1,6 +1,7 @@
 <?php
 
 use src\Application;
+use src\User;
 
 require 'init.php';
 
@@ -23,6 +24,12 @@ $applicationModel = new Application($request, $db);
 
 $currentApplication = $applicationModel->getById($appId);
 
+if (empty($currentApplication)) {
+    header('Location: 404.php');
+    exit();
+}
+
+$applicantFio = (new src\User($request, $db))->getById($currentApplication['user_id'])['fio'];
 
 if ($request->isPost) {
     try {

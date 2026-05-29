@@ -19,5 +19,10 @@ $applicationModel = new Application($request, $db);
 
 $userApplications = $applicationModel->findByColumn('user_id', $user->id);
 
+$searchStatus = $_GET['ApplicationSearch']['status_id'] ?? '';
+
+$userApplications = array_filter($userApplications, fn($app) => 
+    empty($searchStatus) || $app['status'] === $searchStatus
+);
     
 ?>
