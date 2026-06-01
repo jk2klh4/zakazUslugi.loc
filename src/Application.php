@@ -43,8 +43,8 @@ class Application extends Entity {
             throw new InvalidArgumentException('Дата не может быть в прошлом');
         }
 
-        if ($this->time < '08:00' || $this->time > '20:00') {
-            throw new InvalidArgumentException('Выберете время с 8:00 до 20:00');
+        if ($this->time < '09:00' || $this->time > '20:00') {
+            throw new InvalidArgumentException('Выберете время с 9:00 до 20:00');
         }
     }
      public function validateAdminTime() {
@@ -59,8 +59,8 @@ class Application extends Entity {
             throw new InvalidArgumentException('Дата не может быть в прошлом');
         }
 
-        if ($this->time < '08:00' || $this->time > '20:00') {
-            throw new InvalidArgumentException('Выберете время с 8:00 до 20:00');
+        if ($this->time < '09:00' || $this->time > '20:00') {
+            throw new InvalidArgumentException('Выберете время с 9:00 до 20:00');
         }
     }
 
