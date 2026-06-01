@@ -11,7 +11,7 @@ if($request->isPost){
         $user->validateLogin();
         $user->login();
         header("location: index.php");
-    }catch(src\exceptions\invalidArgumentException $e){
+    }catch(src\exceptions\InvalidArgumentException $e){
         $error = $e->getMessage();
     }
 }

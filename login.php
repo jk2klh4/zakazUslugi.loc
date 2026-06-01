@@ -16,6 +16,9 @@
             </nav>
             <div class="site-login">
                 <h1>Авторизация</h1>
+                <?php if(!empty($error)): ?>
+                    <div style="color:red"> <?= $error ?></div>
+                <?php endif ?>
 
                 <div class="row">
                     <div class="col-lg-5">
