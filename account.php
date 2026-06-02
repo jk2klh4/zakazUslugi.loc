@@ -12,6 +12,12 @@
                 </nav>
                 <div class="application-index">
     
+                    <?php if (isset($_GET['delete_ok'])): ?>
+                        <p style="color: green;">
+                            Вы удалили заявку
+                        </p>
+                    <?php endif; ?>
+
                     <h1>Заявки</h1>
     
                     <p>

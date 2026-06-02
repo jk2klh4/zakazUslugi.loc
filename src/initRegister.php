@@ -9,8 +9,8 @@ $page = 'register.php';
 $error = null;
 $successMessage = null;
 
-if (!$user->isGuest()) {
-    header('Location: account.php');
+if (!$user->isAdmin()) {
+    header('Location: index.php');
     exit();
 }
 

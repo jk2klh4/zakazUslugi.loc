@@ -17,7 +17,7 @@
                 <?php endif ?>
 
                 <?php if(!empty($successMessage)): ?>
-                    <div class="alert alert-success" role="alert" style="margin-bottom: 15px;">
+                    <div style="color: green"">
                         <?= $successMessage ?>
                     </div>
                 <?php endif ?>

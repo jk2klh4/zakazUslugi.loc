@@ -57,7 +57,7 @@
                         <?php foreach ($userApplications as $app): ?>
                             
                             <div class="item" data-key="9">
-                                <div class="card" style="width: 18rem;">
+                                <div class="card" style="width: 18rem; margin-bottom: 20px;">
                                     <div class="card-body">
                                         <h5 class="card-title">
                                         <?= $app['reason'] ?></h5>
@@ -75,7 +75,7 @@
                                             </div>
                                             <?= $app['create_at'] ?>
                                         </div>
-                                        <div class="card-text">
+                                        <div class="card-text mb-3">
                                                 <div class="opacity-50">статус:</div>
                                                 <?php 
                                                     $statusMap = [
@@ -85,19 +85,19 @@
                                                         'new'        => 'На посещение'
                                                     ];
 
-                                                    echo $statusMap[$app['status']];
+                                                    echo $statusMap[$app['status']] ?? 'На посещение';
                                                 ?>
                                             </div>
                                             <a class="btn btn-primary" href="admin-app.php?id=<?= $app['id'] ?>">Просмотр</a>
 
-                                            <?php if (in_array($app['status'], ['new', 'timechange', 'На посещение', 'Посещение перенесено'])): ?>
-                                                <a class="btn btn-primary" href="admin-panel.php?id=<?= $app['id'] ?>&status=submit">Подтвердить</a>
+                                            <?php if ($app['status'] === 'new' || empty($app['status'])): ?>
+                                                <a class="btn btn-success" href="admin-panel.php?id=<?= $app['id'] ?>&status=submit">Подтвердить</a>
 
-                                            <?php elseif ($app['status'] === 'timereserv'): ?>
-                                                <a class="btn btn-primary" href="admin-panel.php?id=<?= $app['id'] ?>&status=complete">Завершить</a>
+                                            <?php elseif ($app['status'] === 'timereserv' || $app['status'] === 'timechange'): ?>
+                                                <a class="btn btn-danger" href="admin-panel.php?id=<?= $app['id'] ?>&status=complete">Завершить</a>
 
                                             <?php else: ?>
-                                                <div class="text" style="width: 18rem;">Заявка завершена</div>
+                                                <div class="text mt-2">Заявка завершена</div>
                                             <?php endif; ?>
                                     </div>
                                 </div>

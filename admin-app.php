@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol id="w4" class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Главная</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="account.php">заявки</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="http://localhost/zakazUslugi.loc/admin-panel.php">заявки</a></li>
             </ol>
         </nav>
         <div class="application-index">
@@ -17,7 +17,8 @@
                 <div style="color:red"> <?= $error ?></div>
             <?php endif ?>
             <?php if (isset($_GET['success_id'], $_GET['success_status'])): ?>
-                <p style="color: green"> Статус изменен на: 
+                <!-- УБРАН ЖИРНЫЙ ШРИФТ: Обычный чистый текст -->
+                <p style="color: green; font-weight: normal; margin-top: 15px;"> Статус изменен на: 
                 <?php 
                     $messages = [
                         'timereserv' => 'Время забронировано',
@@ -72,7 +73,7 @@
                                             <?= $currentApplication['create_at'] ?>
                                         </div>
                                         
-                                        <div class="card-text">
+                                        <div class="card-text mb-3">
                                             <div class="opacity-50">статус:</div>
                                             <?php 
                                                 $statusMap = [
@@ -81,11 +82,19 @@
                                                     'provideo'   => 'Услуга оказана',
                                                     'new'        => 'На посещение'
                                                 ];
-                                                echo $statusMap[$currentApplication['status']];
+                                                echo $statusMap[$currentApplication['status']] ?? 'На посещение';
                                             ?>
                                         </div>
                                         
-                                        <a class="btn btn-primary" href="admin-app.php?id=<?= $currentApplication['id'] ?>&action=submit">подтвердить</a>
+                                        <?php if ($currentApplication['status'] === 'new' || empty($currentApplication['status'])): ?>
+                                            <a class="btn btn-primary" href="admin-panel.php?id=<?= $currentApplication['id'] ?>&status=submit">подтвердить</a>
+
+                                        <?php elseif ($currentApplication['status'] === 'timereserv' || $currentApplication['status'] === 'timechange'): ?>
+                                            <a class="btn btn-danger" href="admin-panel.php?id=<?= $currentApplication['id'] ?>&status=complete">Завершить</a>
+
+                                        <?php else: ?>
+                                            <div class="text" style="font-weight: normal;">Заявка завершена</div>
+                                        <?php endif; ?>
 
                                     </div>
                                 </div>

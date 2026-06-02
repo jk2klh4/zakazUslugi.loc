@@ -26,22 +26,23 @@
                 <div id="w1-collapse" class="collapse navbar-collapse">
                     <ul id="w2" class="navbar-nav nav">
                         <li class="nav-item"><a class="nav-link <?= $page == 'feedback.php' ? 'active' : '' ?>" href="feedback.php">отзывы</a></li>
-                            <?php if ($user->isAdmin()): ?>
+                        
+                        <?php if ($user->isAdmin()): ?>
                             <li class="nav-item"><a class="nav-link <?= $page == 'admin-panel.php' ? 'active' : '' ?>" href="admin-panel.php">админ панель</a></li>
-                            <?php endif ?>
-                            <?php if ($user->isGuest()): ?> 
-                            <li class="nav-item"><a class="nav-link <?= $page == 'login.php' ? 'active' : '' ?>" href="login.php">войти</a></li>
                             <li class="nav-item"><a class="nav-link <?= $page == 'register.php' ? 'active' : '' ?>" href="register.php">регистрация</a></li>
-                            <?php else: ?>
+                        <?php endif ?>
+
+                        <?php if ($user->isGuest()): ?> 
+                            <li class="nav-item"><a class="nav-link <?= $page == 'login.php' ? 'active' : '' ?>" href="login.php">войти</a></li>
+                        <?php else: ?>
                             
                             <?php if (!$user->isAdmin()): ?>
-                            <li class="nav-item"><a class="nav-link <?= $page == 'account.php' ? 'active' : '' ?>" href="account.php">личный кабинет</a></li>
+                                <li class="nav-item"><a class="nav-link <?= $page == 'account.php' ? 'active' : '' ?>" href="account.php">личный кабинет</a></li>
                             <?php endif ?>
                             
                             <li class="nav-item"><a class="nav-link" href="logout.php"><?= $user->getLogin() ?>(выйти)</a></li>
                         <?php endif ?>
                     </ul>
-
                 </div>
             </div>
         </nav>

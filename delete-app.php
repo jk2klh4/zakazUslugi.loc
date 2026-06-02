@@ -18,6 +18,6 @@ if ($appId > 0) {
 }
 
 
-header('Location: account.php');
+header('Location: account.php?delete_ok=1');
 exit();
 ?>
