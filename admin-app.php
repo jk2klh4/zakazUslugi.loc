@@ -17,7 +17,6 @@
                 <div style="color:red"> <?= $error ?></div>
             <?php endif ?>
             <?php if (isset($_GET['success_id'], $_GET['success_status'])): ?>
-                <!-- УБРАН ЖИРНЫЙ ШРИФТ: Обычный чистый текст -->
                 <p style="color: green; font-weight: normal; margin-top: 15px;"> Статус изменен на: 
                 <?php 
                     $messages = [
