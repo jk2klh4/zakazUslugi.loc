@@ -7,6 +7,7 @@ require 'init.php';
 
 $page = 'admin-app.php';
 
+// Проверка прав доступа
 if ($user->isGuest()) {
     header('Location: login.php');
     exit();
@@ -18,9 +19,16 @@ if (!$user->isAdmin()) {
 }
 
 $appId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-
-
 $applicationModel = new Application($request, $db);
+
+if (isset($_GET['action']) && $_GET['action'] === 'submit' && $appId > 0) {
+    $applicationModel->id = $appId;
+    
+    $applicationModel->update(['status' => 'timereserv']);
+    
+    header("Location: admin-app.php?id={$appId}&success_id={$appId}&success_status=timereserv");
+    exit();
+}
 
 $currentApplication = $applicationModel->getById($appId);
 
@@ -49,10 +57,11 @@ if ($request->isPost) {
             'status' => 'timechange'
         ];
         $applicationModel->update($fields);
-        header("Location: admin-panel.php?success_id={$appId}&msg=");
+        
+        header("Location: admin-app.php?id={$appId}&success_id={$appId}&success_status=timechange");
         exit();
 
     } catch (\src\Exceptions\InvalidArgumentException $e) {
         $error = $e->getMessage();
-}
+    }
 }

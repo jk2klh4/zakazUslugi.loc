@@ -33,7 +33,11 @@
                             <li class="nav-item"><a class="nav-link <?= $page == 'login.php' ? 'active' : '' ?>" href="login.php">войти</a></li>
                             <li class="nav-item"><a class="nav-link <?= $page == 'register.php' ? 'active' : '' ?>" href="register.php">регистрация</a></li>
                             <?php else: ?>
+                            
+                            <?php if (!$user->isAdmin()): ?>
                             <li class="nav-item"><a class="nav-link <?= $page == 'account.php' ? 'active' : '' ?>" href="account.php">личный кабинет</a></li>
+                            <?php endif ?>
+                            
                             <li class="nav-item"><a class="nav-link" href="logout.php"><?= $user->getLogin() ?>(выйти)</a></li>
                         <?php endif ?>
                     </ul>

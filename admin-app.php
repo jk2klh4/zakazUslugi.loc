@@ -16,6 +16,19 @@
             <?php if(!empty($error)): ?>
                 <div style="color:red"> <?= $error ?></div>
             <?php endif ?>
+            <?php if (isset($_GET['success_id'], $_GET['success_status'])): ?>
+                <p style="color: green"> Статус изменен на: 
+                <?php 
+                    $messages = [
+                        'timereserv' => 'Время забронировано',
+                        'timechange' => 'Посещение перенесено',
+                        'provideo'   => 'Услуга оказана',
+                        'new'        => 'На посещение'
+                    ];
+                    echo $messages[$_GET['success_status']];
+                ?>
+                </p>
+            <?php endif; ?>
                 <div class="feedback-index p-3">
                     <form id="w0" action="" method="post">
                         <input type="hidden" name="_csrf" value="Y8NMvvT3LR7_0FE4QlfcxYPKc6Y2OK44IrCGNdMqbagnjTjstcRneKWCP3EvEIap9vpLxXJbx1sS4-9C6ksc4w==">
@@ -72,7 +85,8 @@
                                             ?>
                                         </div>
                                         
-                                        <a class="btn btn-primary" href="admin-panel.php?submit&id=<?= $currentApplication['id'] ?>">подтвердить</a>
+                                        <a class="btn btn-primary" href="admin-app.php?id=<?= $currentApplication['id'] ?>&action=submit">подтвердить</a>
+
                                     </div>
                                 </div>
                             </div>
